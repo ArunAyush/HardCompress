@@ -49,8 +49,6 @@ for i in weightList:
 
 print(len(quantizedWeightArray))
 
-quantizedWeightArray
-
 absWeightValues = quantizedWeightArray
 print(np.shape(absWeightValues))
 print(len(absWeightValues))
@@ -58,7 +56,7 @@ print(len(absWeightValues))
 for i in range(len(absWeightValues)):
 	absWeightValues[i] = abs(quantizedWeightArray[i])
 
-np.shape(absWeightValues)
+print(np.shape(absWeightValues))
 
 weightCount = 0
 for i in range(len(absWeightValues)):
