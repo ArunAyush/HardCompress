@@ -17,23 +17,6 @@ from tensorflow.keras.applications.mobilenet import MobileNet
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.mobilenet import preprocess_input, decode_predictions
 
-origModel = MobileNet(weights='imagenet')
-
-# Serializing model to JSON
-finalTrainedModel_json = origModel.to_json()
-with open("pretrainedModel_MobileNet_ImageNet.json", "w") as json_file:
-    json_file.write(finalTrainedModel_json)
-
-# Serializing weights to HDF5
-origModel.save_weights("pretrainedModel_MobileNet_ImageNet.h5")
-print("Model saved locally")
-
-for i in range(len(origModel.weights)):
-  print("Layer", i+1, "has shape:", np.shape(origModel.weights[i]))
-
-weightList = [x for x in range(0, 140, 5)]
-print(weightList)
-
 # load json and create model
 json_file = open('pretrainedModel_MobileNet_ImageNet.json', 'r')
 loaded_model_json = json_file.read()
@@ -45,6 +28,9 @@ trainedModel.load_weights("pretrainedModel_MobileNet_ImageNet.h5")
 print("Loaded model from disk")
 trainedWeights = np.array(trainedModel.get_weights())
 print (len(trainedWeights))
+
+weightList = [x for x in range(0, 140, 5)]
+print(weightList)
 
 maxWeightArray = []
 for i in weightList:
