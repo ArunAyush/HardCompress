@@ -13,10 +13,6 @@ from collections import defaultdict
 import collections
 from collections import Counter
 
-from tensorflow.keras.applications.mobilenet import MobileNet
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.mobilenet import preprocess_input, decode_predictions
-
 # load json and create model
 json_file = open('pm_MobileNet_ImageNet.json', 'r')
 loaded_model_json = json_file.read()
