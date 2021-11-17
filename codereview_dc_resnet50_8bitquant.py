@@ -12,42 +12,21 @@ from numpy import load
 from collections import defaultdict
 from collections import Counter
 
-from tensorflow.keras.applications.resnet50 import ResNet50
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
-
-origModel = ResNet50(weights='imagenet')
-
-# Serializing model to JSON
-finalTrainedModel_json = origModel.to_json()
-with open("pretrainedModel_ResNet50_ImageNet.json", "w") as json_file:
-    json_file.write(finalTrainedModel_json)
-
-# Serializing weights to HDF5
-origModel.save_weights("pretrainedModel_ResNet50_ImageNet.h5")
-print("Model saved locally")
-
-for i in range(len(origModel.weights)):
-  print("Layer", i+1, "has shape:", np.shape(origModel.weights[i]))
-
-# weightList = [x for x in range(0, 31, 2)]
-weightList = [0, 6, 12, 18, 20, 30, 36, 42, 48, 54, 60, 66, 72, 78, 80, 90, 96, 102, 108, 114, 120, 126, 132, 138, 144, 150, 156, 158, 168, 174, 180, 186, 192, 198, 204, 210, 216, 222, 228, 234, 240, 246, 252, 258, 264, 270, 272, 282, 288, 294, 300, 306, 312, 318]
-print(weightList)
-
 # load json and create model
-json_file = open('pretrainedModel_ResNet50_ImageNet.json', 'r')
+json_file = open('pm_ResNet50_ImageNet.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 
 trainedModel = model_from_json(loaded_model_json)
 # load weights into new model
-trainedModel.load_weights("pretrainedModel_ResNet50_ImageNet.h5")
+trainedModel.load_weights("pm_ResNet50_ImageNet.h5")
 print("Loaded model from disk")
 trainedWeights = np.array(trainedModel.get_weights())
 print (len(trainedWeights))
 
-# for i in range(len(trainedWeights)):
-#   print("Layer", i+1, "has shape:", np.shape(trainedWeights[i]))
+# weightList = [x for x in range(0, 31, 2)]
+weightList = [0, 6, 12, 18, 20, 30, 36, 42, 48, 54, 60, 66, 72, 78, 80, 90, 96, 102, 108, 114, 120, 126, 132, 138, 144, 150, 156, 158, 168, 174, 180, 186, 192, 198, 204, 210, 216, 222, 228, 234, 240, 246, 252, 258, 264, 270, 272, 282, 288, 294, 300, 306, 312, 318]
+print(weightList)
 
 maxWeightArray = []
 for i in weightList:
