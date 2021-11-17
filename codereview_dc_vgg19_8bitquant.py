@@ -12,41 +12,20 @@ from numpy import load
 from collections import defaultdict
 from collections import Counter
 
-print(tf.__version__)
-
-origModel = tf.keras.applications.VGG19(include_top=True, weights='imagenet')
-
-origModel.summary()
-
-# Serializing model to JSON
-finalTrainedModel_json = origModel.to_json()
-with open("pretrainedModel_VGG19_ImageNet.json", "w") as json_file:
-    json_file.write(finalTrainedModel_json)
-
-# Serializing weights to HDF5
-origModel.save_weights("pretrainedModel_VGG19_ImageNet.h5")
-print("Model saved locally")
-
-for i in range(len(origModel.weights)):
-  print("Layer", i+1, "has shape:", np.shape(origModel.weights[i]))
-
-weightList = [x for x in range(0, 37, 2)]
-print(weightList)
-
 # load json and create model
-json_file = open('pretrainedModel_VGG19_ImageNet.json', 'r')
+json_file = open('pm_VGG19_ImageNet.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 
 trainedModel = model_from_json(loaded_model_json)
 # load weights into new model
-trainedModel.load_weights("pretrainedModel_VGG19_ImageNet.h5")
+trainedModel.load_weights("pm_VGG19_ImageNet.h5")
 print("Loaded model from disk")
 trainedWeights = np.array(trainedModel.get_weights())
 print (len(trainedWeights))
 
-# for i in range(len(trainedWeights)):
-#   print("Layer", i+1, "has shape:", np.shape(trainedWeights[i]))
+weightList = [x for x in range(0, 37, 2)]
+print(weightList)
 
 maxWeightArray = []
 for i in weightList:
