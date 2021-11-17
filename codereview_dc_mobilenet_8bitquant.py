@@ -18,13 +18,13 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.mobilenet import preprocess_input, decode_predictions
 
 # load json and create model
-json_file = open('pretrainedModel_MobileNet_ImageNet.json', 'r')
+json_file = open('pm_MobileNet_ImageNet.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 
 trainedModel = model_from_json(loaded_model_json)
 # load weights into new model
-trainedModel.load_weights("pretrainedModel_MobileNet_ImageNet.h5")
+trainedModel.load_weights("pm_MobileNet_ImageNet.h5")
 print("Loaded model from disk")
 trainedWeights = np.array(trainedModel.get_weights())
 print (len(trainedWeights))
